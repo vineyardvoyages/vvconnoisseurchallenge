@@ -1,0 +1,3 @@
+[build]
+command = "CI=false npm install --force && npm run build"
+publish = "build"
