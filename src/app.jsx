@@ -19,7 +19,7 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, collection, s
 // }
 const WINE_QUIZ_QUESTIONS = [
   // Example Question (replace with your full list):
-   {
+  {
     question: "Which of the following is a red grape varietal?",
     options: ["Chardonnay", "Sauvignon Blanc", "Merlot", "Pinot Grigio"],
     correctAnswer: "Merlot",
@@ -1030,6 +1030,7 @@ const WINE_QUIZ_QUESTIONS = [
       "Syrah": "Syrah is not traditionally used in Rioja wines."
     }
   },
+
 // --- HELPER FUNCTIONS ---
 const shuffleArray = (array) => {
   let currentIndex = array.length, randomIndex;
