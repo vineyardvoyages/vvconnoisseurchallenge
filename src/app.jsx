@@ -1029,7 +1029,7 @@ const WINE_QUIZ_QUESTIONS = [
       "Cabernet Sauvignon": "Cabernet Sauvignon is not traditionally used in Rioja wines.",
       "Syrah": "Syrah is not traditionally used in Rioja wines."
     }
-  },
+  }
 
 // --- HELPER FUNCTIONS ---
 const shuffleArray = (array) => {
