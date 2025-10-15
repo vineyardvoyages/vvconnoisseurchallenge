@@ -1030,7 +1030,7 @@ const WINE_QUIZ_QUESTIONS = [
       "Syrah": "Syrah is not traditionally used in Rioja wines."
     }
   }
-
+];
 // --- HELPER FUNCTIONS ---
 const shuffleArray = (array) => {
   let currentIndex = array.length, randomIndex;
