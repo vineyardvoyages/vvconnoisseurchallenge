@@ -5,18 +5,6 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, collection, s
 
 // --- WINE QUIZ QUESTIONS BANK ---
 // PASTE YOUR FULL ARRAY OF 100 QUESTIONS HERE
-// Ensure each question object follows this format:
-// {
-//   question: "Your question here?",
-//   options: ["Option 1", "Option 2", "Option 3", "Option 4"],
-//   correctAnswer: "The correct option text",
-//   explanation: "Why the correct answer is right.",
-//   wrongAnswerExplanations: {
-//     "Wrong Option 1": "Explanation for why this is wrong.",
-//     "Wrong Option 2": "Explanation for why this is wrong.",
-//     "Wrong Option 3": "Explanation for why this is wrong."
-//   }
-// }
 const WINE_QUIZ_QUESTIONS = [
   // Example Question (replace with your full list):
   {
@@ -1031,6 +1019,7 @@ const WINE_QUIZ_QUESTIONS = [
     }
   }
 ];
+
 // --- HELPER FUNCTIONS ---
 const shuffleArray = (array) => {
   let currentIndex = array.length, randomIndex;
@@ -1054,20 +1043,32 @@ const generateGameCode = () => {
   }
   return result;
 };
+
 // --- FIREBASE INITIALIZATION (RUNS ONCE) ---
-const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-};
+let firebaseConfig;
+let appId;
+
+if (typeof __firebase_config !== 'undefined') {
+  firebaseConfig = JSON.parse(__firebase_config);
+  const rawAppId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+  appId = String(rawAppId).replace(/[^a-zA-Z0-9_-]/g, '_');
+} else {
+  firebaseConfig = {
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  };
+  appId = firebaseConfig.projectId;
+}
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 setLogLevel('debug');
+
 
 // --- MAIN APP COMPONENT ---
 export default function App() {
