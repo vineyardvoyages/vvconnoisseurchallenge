@@ -1019,6 +1019,514 @@ const WINE_QUIZ_QUESTIONS = [
       "Syrah": "Syrah is not traditionally used in Rioja wines."
     }
   }
+
+[
+  // --- General Wine Knowledge ---
+  {
+    question: "How is most still Rosé wine made?",
+    options: ["Mixing red and white wine", "Brief contact with red grape skins", "Using a special pink grape", "Adding red food coloring"],
+    correctAnswer: "Brief contact with red grape skins",
+    explanation: "Most Rosé gets its color from allowing the juice to have limited contact with the skins of red grapes, a process called maceration.",
+    wrongAnswerExplanations: {
+      "Mixing red and white wine": "This is only permitted for Rosé Champagne in Europe, but not for still Rosé wines.",
+      "Using a special pink grape": "While some grapes have a pinkish hue (like Pinot Grigio), Rosé is typically made from red grapes.",
+      "Adding red food coloring": "This is not a permitted or practiced method in quality winemaking."
+    }
+  },
+  {
+    question: "What does 'Trocken' mean on a German wine label?",
+    options: ["Sweet", "Semi-sweet", "Dry", "Sparkling"],
+    correctAnswer: "Dry",
+    explanation: "Trocken is the German word for 'dry,' indicating a wine with very little residual sugar.",
+    wrongAnswerExplanations: {
+      "Sweet": "The German term for sweet is 'süß' or designations like 'Spätlese' can be sweet.",
+      "Semi-sweet": "Terms like 'feinherb' or 'halbtrocken' indicate semi-sweet or off-dry.",
+      "Sparkling": "Sparkling wine in Germany is called 'Sekt'."
+    }
+  },
+  {
+    question: "What factor has the biggest influence on a wine's 'body'?",
+    options: ["Color", "Acidity", "Alcohol Content", "Age"],
+    correctAnswer: "Alcohol Content",
+    explanation: "Alcohol is more viscous than water, so higher alcohol content generally leads to a fuller, heavier feeling in the mouth, which we perceive as body.",
+    wrongAnswerExplanations: {
+      "Color": "Color is a visual attribute and does not directly determine the wine's body.",
+      "Acidity": "Acidity contributes to a wine's freshness and structure, but not its weight or body.",
+      "Age": "While age can change a wine's texture, alcohol is the primary driver of body."
+    }
+  },
+  {
+    question: "The wine region of Burgundy in France is most famous for which two grape varieties?",
+    options: ["Cabernet Sauvignon and Merlot", "Pinot Noir and Chardonnay", "Syrah and Viognier", "Sauvignon Blanc and Chenin Blanc"],
+    correctAnswer: "Pinot Noir and Chardonnay",
+    explanation: "Burgundy is the ancestral home of Pinot Noir (for red wines) and Chardonnay (for white wines), and it sets the world standard for both.",
+    wrongAnswerExplanations: {
+      "Cabernet Sauvignon and Merlot": "These are the primary grapes of the Bordeaux region, not Burgundy.",
+      "Syrah and Viognier": "These are the signature grapes of the Rhône Valley.",
+      "Sauvignon Blanc and Chenin Blanc": "These grapes are most famously associated with the Loire Valley."
+    }
+  },
+  {
+    question: "What is 'phylloxera'?",
+    options: ["A type of beneficial yeast", "A microscopic aphid that destroys grapevines", "A method for filtering wine", "A soil type found in Spain"],
+    correctAnswer: "A microscopic aphid that destroys grapevines",
+    explanation: "Phylloxera is a devastating pest that attacks the roots of grapevines. The solution was to graft European vines onto resistant American rootstock.",
+    wrongAnswerExplanations: {
+      "A type of beneficial yeast": "Yeast is a fungus used for fermentation; phylloxera is an insect pest.",
+      "A method for filtering wine": "This is a winemaking step, not a vineyard pest.",
+      "A soil type found in Spain": "This is a pest, not a soil type."
+    }
+  },
+  {
+    question: "A 'vertical tasting' involves tasting which of the following?",
+    options: ["Different wines from the same region", "The same wine from different vintages", "Wines from different countries", "Wines served in very tall glasses"],
+    correctAnswer: "The same wine from different vintages",
+    explanation: "A vertical tasting is a great way to see how a specific wine from a single winery evolves over time by tasting several different years side-by-side.",
+    wrongAnswerExplanations: {
+      "Different wines from the same region": "This is known as a 'horizontal tasting.'",
+      "Wines from different countries": "This would simply be a comparative tasting with no specific name.",
+      "Wines served in very tall glasses": "The shape of the glass does not define the type of tasting."
+    }
+  },
+  {
+    question: "Which country is famous for its Pinotage, a cross between Pinot Noir and Cinsaut?",
+    options: ["Australia", "Chile", "South Africa", "New Zealand"],
+    correctAnswer: "South Africa",
+    explanation: "Pinotage is South Africa's signature red grape, created there in 1925. It often has unique notes of smoke and dark fruits.",
+    wrongAnswerExplanations: {
+        "Australia": "Australia is famous for Shiraz, not Pinotage.",
+        "Chile": "Chile's signature red grape is Carmenère.",
+        "New Zealand": "New Zealand is most renowned for Sauvignon Blanc and Pinot Noir."
+    }
+  },
+  {
+    question: "What does the term 'brut' on a Champagne label signify?",
+    options: ["Very sweet", "A red sparkling wine", "A specific blend of grapes", "Dry"],
+    correctAnswer: "Dry",
+    explanation: "Brut is a term used to indicate the sweetness level in sparkling wine, with Brut being the most common and signifying a dry style.",
+    wrongAnswerExplanations: {
+      "Very sweet": "The term for very sweet sparkling wine is 'Doux'.",
+      "A red sparkling wine": "This describes the style, not the sweetness level.",
+      "A specific blend of grapes": "This relates to the cuvée, not the sweetness."
+    }
+  },
+  {
+    question: "Which of these is NOT a primary noble grape of Alsace, France?",
+    options: ["Riesling", "Gewürztraminer", "Chardonnay", "Pinot Gris"],
+    correctAnswer: "Chardonnay",
+    explanation: "The four noble grapes of Alsace are Riesling, Gewürztraminer, Pinot Gris, and Muscat. Chardonnay is the primary grape of nearby Burgundy and Champagne.",
+    wrongAnswerExplanations: {
+      "Riesling": "Riesling is one of the most important noble grapes of Alsace.",
+      "Gewürztraminer": "Gewürztraminer is a famously aromatic noble grape of Alsace.",
+      "Pinot Gris": "Pinot Gris (distinct from Italian Pinot Grigio) is a key noble grape of Alsace."
+    }
+  },
+  {
+    question: "The 'Right Bank' of Bordeaux is most famous for wines based on which grape?",
+    options: ["Cabernet Sauvignon", "Merlot", "Malbec", "Sauvignon Blanc"],
+    correctAnswer: "Merlot",
+    explanation: "The Right Bank regions, such as Pomerol and Saint-Émilion, have clay-based soils perfect for Merlot, which dominates their famous blends.",
+    wrongAnswerExplanations: {
+      "Cabernet Sauvignon": "Cabernet Sauvignon is the king of the 'Left Bank' of Bordeaux, where gravel soils dominate.",
+      "Malbec": "While used in Bordeaux, Malbec is a minor blending grape and is more famous in Argentina.",
+      "Sauvignon Blanc": "This is a white grape used for the dry and sweet white wines of Bordeaux."
+    }
+  },
+  {
+    question: "What is 'carbonic maceration' most famously used for?",
+    options: ["Making Port wine", "Aging Chardonnay", "Producing Beaujolais Nouveau", "Making Ice Wine"],
+    correctAnswer: "Producing Beaujolais Nouveau",
+    explanation: "This technique involves fermenting whole grape clusters in a carbon dioxide-rich environment, which produces the fresh, fruity, low-tannin style of Beaujolais Nouveau.",
+    wrongAnswerExplanations: {
+      "Making Port wine": "Port is a fortified wine, which involves adding brandy during fermentation.",
+      "Aging Chardonnay": "This is a fermentation technique, not an aging method.",
+      "Making Ice Wine": "Ice wine is made by pressing grapes that have frozen on the vine."
+    }
+  },
+  {
+    question: "A 'corked' wine is contaminated with what compound?",
+    options: ["Sulfur Dioxide", "TCA (Trichloroanisole)", "Brettanomyces", "Volatile Acidity"],
+    correctAnswer: "TCA (Trichloroanisole)",
+    explanation: "TCA is a chemical compound that imparts a musty, moldy smell like wet cardboard or a damp basement, ruining the wine.",
+    wrongAnswerExplanations: {
+        "Sulfur Dioxide": "While high levels can be a fault (smelling of burnt matches), it's not what 'corked' means.",
+        "Brettanomyces": "This is a yeast that can cause aromas of barnyard or band-aids.",
+        "Volatile Acidity": "This creates a vinegary smell in wine."
+    }
+  },
+  {
+    question: "Which of these describes a wine's 'finish'?",
+    options: ["The initial taste on the palate", "The way it looks in the glass", "The lingering taste after you swallow", "The aroma before you sip"],
+    correctAnswer: "The lingering taste after you swallow",
+    explanation: "The finish, or aftertaste, is the sensation a wine leaves in your mouth after you've swallowed or spit it out. A long, pleasant finish is a sign of a high-quality wine.",
+    wrongAnswerExplanations: {
+      "The initial taste on the palate": "This is known as the 'attack' or 'entry'.",
+      "The way it looks in the glass": "This refers to the wine's appearance or 'legs'.",
+      "The aroma before you sip": "This is the wine's 'nose' or 'aroma'."
+    }
+  },
+  {
+    question: "What does 'sur lie' aging involve?",
+    options: ["Aging wine underwater", "Aging wine with dead yeast cells", "Aging wine in a very cold cellar", "Aging wine in clay pots"],
+    correctAnswer: "Aging wine with dead yeast cells",
+    explanation: "'Sur lie' is a French phrase that means 'on the lees.' The lees are the dead yeast cells left after fermentation, which can add texture and complexity to the wine.",
+    wrongAnswerExplanations: {
+      "Aging wine underwater": "While experimental, this is not the meaning of 'sur lie'.",
+      "Aging wine in a very cold cellar": "This describes cellar conditions, not a specific technique.",
+      "Aging wine in clay pots": "This refers to aging in amphorae, an ancient technique."
+    }
+  },
+  {
+    question: "The term 'cuvée' on a wine label refers to what?",
+    options: ["The vintage year", "A specific blend of wine", "The vineyard location", "The alcohol content"],
+    correctAnswer: "A specific blend of wine",
+    explanation: "Cuvée is a French term that refers to a specific blend or batch of wine, often one that a winemaker considers to be of a higher quality.",
+    wrongAnswerExplanations: {
+      "The vintage year": "Vintage refers to the year the grapes were harvested.",
+      "The vineyard location": "This is referred to as the appellation or vineyard designation.",
+      "The alcohol content": "This is listed as ABV (Alcohol by Volume) on the label."
+    }
+  },
+  {
+    question: "What is 'racking' in the winemaking process?",
+    options: ["Storing bottles on a rack", "Turning bottles during aging", "Siphoning wine off its sediment", "Crushing the grapes"],
+    correctAnswer: "Siphoning wine off its sediment",
+    explanation: "Racking is the process of carefully moving wine from one barrel or tank to another, leaving the sediment (lees) behind to clarify the wine.",
+    wrongAnswerExplanations: {
+      "Storing bottles on a rack": "This is simply wine storage.",
+      "Turning bottles during aging": "This is 'riddling,' a process specific to traditional method sparkling wine.",
+      "Crushing the grapes": "This is the initial step of pressing or crushing the grapes to release juice."
+    }
+  },
+  {
+    question: "Which of these red grapes is known for having very low tannins?",
+    options: ["Cabernet Sauvignon", "Nebbiolo", "Gamay", "Tannat"],
+    correctAnswer: "Gamay",
+    explanation: "Gamay, the grape of Beaujolais, is known for producing light, fruity red wines with very low levels of tannin, making them easy to drink.",
+    wrongAnswerExplanations: {
+      "Cabernet Sauvignon": "This grape is famous for its high, firm tannin structure.",
+      "Nebbiolo": "This Italian grape, used in Barolo, has famously powerful tannins.",
+      "Tannat": "As the name suggests, this grape is known for having some of the highest tannin levels of any variety."
+    }
+  },
+  {
+    question: "The 'solera' system is a unique aging and blending process used for which wine?",
+    options: ["Port", "Madeira", "Sherry", "Sauternes"],
+    correctAnswer: "Sherry",
+    explanation: "The solera system is a complex method of fractional blending used in Jerez, Spain, where younger wines are progressively blended with older wines to ensure a consistent style.",
+    wrongAnswerExplanations: {
+      "Port": "Port is typically aged by vintage or in casks, but not using a solera system.",
+      "Madeira": "Madeira is aged using a unique heating process called 'estufagem'.",
+      "Sauternes": "Sauternes is aged in barrels but does not use the solera blending system."
+    }
+  },
+  {
+    question: "If a wine is described as 'varietal,' what does that mean?",
+    options: ["It comes from a specific region", "It is made from a blend of many grapes", "It is made primarily from one type of grape", "It is a sweet wine"],
+    correctAnswer: "It is made primarily from one type of grape",
+    explanation: "A varietal wine is one that is labeled as being made from a single, dominant grape variety (e.g., 'Merlot' or 'Chardonnay'). In the US, it must contain at least 75% of that grape.",
+    wrongAnswerExplanations: {
+      "It comes from a specific region": "This refers to the wine's appellation, not its grape composition.",
+      "It is made from a blend of many grapes": "This is the opposite; it's a 'blend,' not a 'varietal'.",
+      "It is a sweet wine": "A varietal wine can be sweet or dry."
+    }
+  },
+  {
+    question: "What does 'Blanc de Blancs' mean on a Champagne label?",
+    options: ["White from reds", "A blend of all grapes", "White from whites", "A sweet style"],
+    correctAnswer: "White from whites",
+    explanation: "'Blanc de Blancs' translates to 'white from whites' and signifies that the Champagne was made 100% from white grapes, which almost always means 100% Chardonnay.",
+    wrongAnswerExplanations: {
+      "White from reds": "This is called 'Blanc de Noirs,' or 'white from blacks,' made from Pinot Noir and/or Pinot Meunier.",
+      "A blend of all grapes": "This describes a standard Champagne cuvée, not a specific style like Blanc de Blancs.",
+      "A sweet style": "This refers to the style of grape used, not the sweetness level. A Blanc de Blancs can be dry (Brut) or sweet (Doux)."
+    }
+  },
+  {
+    question: "Which of these is a major wine region in Australia?",
+    options: ["Marlborough", "Stellenbosch", "Barossa Valley", "Central Otago"],
+    correctAnswer: "Barossa Valley",
+    explanation: "The Barossa Valley in South Australia is one of the country's most famous wine regions, renowned for its powerful Shiraz.",
+    wrongAnswerExplanations: {
+      "Marlborough": "Marlborough is the most famous wine region in New Zealand.",
+      "Stellenbosch": "Stellenbosch is a premier wine region in South Africa.",
+      "Central Otago": "Central Otago is a well-regarded region in New Zealand, known for Pinot Noir."
+    }
+  },
+  {
+    question: "A 'punt' in a wine bottle refers to what?",
+    options: ["The cork", "The label", "The indentation at the bottom of the bottle", "The neck of the bottle"],
+    correctAnswer: "The indentation at the bottom of the bottle",
+    explanation: "The punt is the dimple or indentation at the base of a wine bottle. Its original purpose is debated but may have been for stability or strength.",
+    wrongAnswerExplanations: {
+      "The cork": "The cork is the stopper used to seal the bottle.",
+      "The label": "The label contains information about the wine.",
+      "The neck of the bottle": "The neck is the narrow part of the bottle leading to the opening."
+    }
+  },
+  {
+    question: "Which country is the origin of the Carmenère grape, though it is now most famous in Chile?",
+    options: ["Spain", "Italy", "Argentina", "France"],
+    correctAnswer: "France",
+    explanation: "Carmenère is a Bordeaux grape variety that was thought to be nearly extinct in France. It was rediscovered in Chile, where it had been mistaken for Merlot for many years.",
+    wrongAnswerExplanations: {
+      "Spain": "Spain's most famous red grape is Tempranillo.",
+      "Italy": "Italy is known for grapes like Sangiovese and Nebbiolo.",
+      "Argentina": "Argentina's signature red grape is Malbec, which also originated in France."
+    }
+  },
+  {
+    question: "What is 'bottle shock' or 'bottle sickness'?",
+    options: ["When a wine is too old to drink", "A temporary condition after bottling or shipping", "A type of wine fault from bad corks", "A marketing term for cheap wine"],
+    correctAnswer: "A temporary condition after bottling or shipping",
+    explanation: "Bottle shock refers to a temporary period where a wine's flavors and aromas are muted or disjointed, often after being agitated during bottling or travel. It usually resolves with a few days or weeks of rest.",
+    wrongAnswerExplanations: {
+      "When a wine is too old to drink": "An old, over-the-hill wine is described as 'faded' or 'oxidized'.",
+      "A type of wine fault from bad corks": "This is known as 'cork taint' or TCA.",
+      "A marketing term for cheap wine": "It is a real, temporary phenomenon observed by winemakers and sommeliers."
+    }
+  },
+  {
+    question: "Which of these is a key wine region in Washington State?",
+    options: ["Willamette Valley", "Columbia Valley", "Finger Lakes", "Paso Robles"],
+    correctAnswer: "Columbia Valley",
+    explanation: "The Columbia Valley is the largest AVA in Washington State, known for producing a wide variety of high-quality wines, including Riesling, Merlot, and Cabernet Sauvignon.",
+    wrongAnswerExplanations: {
+      "Willamette Valley": "This is the most famous wine region in Oregon.",
+      "Finger Lakes": "This is a prominent wine region in New York State.",
+      "Paso Robles": "This is a well-known wine region on California's Central Coast."
+    }
+  },
+  {
+    question: "The process of 'riddling' is used in the production of which type of wine?",
+    options: ["Ice Wine", "Port", "Traditional Method Sparkling Wine", "Rosé"],
+    correctAnswer: "Traditional Method Sparkling Wine",
+    explanation: "Riddling is the process of gradually turning and tilting bottles of sparkling wine to collect the yeast sediment in the neck before disgorgement.",
+    wrongAnswerExplanations: {
+      "Ice Wine": "Ice wine is made from frozen grapes and does not involve riddling.",
+      "Port": "Port is a fortified wine and does not undergo this process.",
+      "Rosé": "Rosé is a still wine and is not made using the riddling process."
+    }
+  },
+  {
+    question: "What is the primary red grape of the Beaujolais region in France?",
+    options: ["Pinot Noir", "Syrah", "Cabernet Franc", "Gamay"],
+    correctAnswer: "Gamay",
+    explanation: "The Gamay grape is responsible for the light-bodied, fruity red wines of Beaujolais, including the famous Beaujolais Nouveau.",
+    wrongAnswerExplanations: {
+      "Pinot Noir": "Pinot Noir is the grape of Burgundy, which is just north of Beaujolais.",
+      "Syrah": "Syrah is the grape of the Northern Rhône Valley.",
+      "Cabernet Franc": "Cabernet Franc is a key grape in the Loire Valley and Bordeaux."
+    }
+  },
+  {
+    question: "What does the term 'legs' or 'tears' on the inside of a wine glass indicate?",
+    options: ["The age of the wine", "The quality of the wine", "The sugar or alcohol content", "The acidity of the wine"],
+    correctAnswer: "The sugar or alcohol content",
+    explanation: "The 'legs' are droplets that run down the side of the glass, caused by the Marangoni effect. Thicker, slower-moving legs can indicate higher alcohol or residual sugar.",
+    wrongAnswerExplanations: {
+      "The age of the wine": "Age cannot be determined by looking at the legs.",
+      "The quality of the wine": "Legs are not a reliable indicator of a wine's quality.",
+      "The acidity of the wine": "Acidity does not cause the formation of legs."
+    }
+  },
+  {
+    question: "Which of these is a famous wine region in Germany known for Spätburgunder (Pinot Noir)?",
+    options: ["Mosel", "Rheingau", "Baden", "Pfalz"],
+    correctAnswer: "Baden",
+    explanation: "Baden is Germany's warmest wine region and is particularly well-regarded for its high-quality Spätburgunder (Pinot Noir).",
+    wrongAnswerExplanations: {
+      "Mosel": "The Mosel is most famous for its world-class Riesling.",
+      "Rheingau": "The Rheingau is also primarily known for Riesling.",
+      "Pfalz": "Pfalz produces excellent Riesling and a variety of other grapes, but Baden is more famous for Pinot Noir."
+    }
+  },
+  {
+    question: "What does 'appellation' mean in the context of wine?",
+    options: ["The name of the grape", "The brand name of the winery", "A legally defined geographical area", "The year of harvest"],
+    correctAnswer: "A legally defined geographical area",
+    explanation: "An appellation is a legally defined and protected geographical indication used to identify where the grapes for a wine were grown, like 'Napa Valley' or 'Bordeaux'.",
+    wrongAnswerExplanations: {
+      "The name of the grape": "This is the 'variety' or 'varietal'.",
+      "The brand name of the winery": "This is the 'producer' or 'brand'.",
+      "The year of harvest": "This is the 'vintage'."
+    }
+  },
+  {
+    question: "What does 'GSM' refer to in the wine world?",
+    options: ["A type of wine bottle size", "A popular red wine blend", "A German quality level", "A system for rating wines"],
+    correctAnswer: "A popular red wine blend",
+    explanation: "'GSM' stands for Grenache, Syrah, and Mourvèdre, the three grapes that form the basis of the famous red blends from the Southern Rhône Valley.",
+    wrongAnswerExplanations: {
+      "A type of wine bottle size": "Bottle sizes have names like Magnum, Jeroboam, etc.",
+      "A German quality level": "German quality levels include terms like Kabinett and Spätlese.",
+      "A system for rating wines": "Rating systems are typically based on a 100-point scale."
+    }
+  },
+  // --- Virginia-Focused Questions ---
+  {
+    question: "The Virginia Governor's Cup is a prestigious annual wine competition. The collection of the top 12 winning wines is known as what?",
+    options: ["The Governor's Dozen", "The Jefferson Collection", "The Commonwealth Chalice", "The Governor's Case"],
+    correctAnswer: "The Governor's Case",
+    explanation: "The top 12 scoring wines in the competition make up the 'Governor's Case,' with one of them being awarded the overall Governor's Cup trophy.",
+    wrongAnswerExplanations: {
+      "The Governor's Dozen": "While there are 12 wines, the official name for the collection is the 'Governor's Case'.",
+      "The Jefferson Collection": "The Jefferson Cup Invitational is a separate, different wine competition.",
+      "The Commonwealth Chalice": "This is not the name of the top prize in the Virginia Governor's Cup."
+    }
+  },
+  {
+    question: "What is the largest AVA in Virginia, covering a large swath of the western part of the state?",
+    options: ["Monticello AVA", "Shenandoah Valley AVA", "Middleburg AVA", "Northern Neck George Washington Birthplace AVA"],
+    correctAnswer: "Shenandoah Valley AVA",
+    explanation: "The Shenandoah Valley AVA is Virginia's largest, stretching for over 100 miles along the Blue Ridge and Allegheny Mountains.",
+    wrongAnswerExplanations: {
+      "Monticello AVA": "This is a famous AVA around Charlottesville but is much smaller than the Shenandoah Valley.",
+      "Middleburg AVA": "This is a prominent AVA in Northern Virginia, but it is not the largest.",
+      "Northern Neck George Washington Birthplace AVA": "This is a historic AVA but is geographically smaller."
+    }
+  },
+  {
+    question: "Which hybrid grape, known for its deep color and disease resistance, is often used for red wines in Virginia?",
+    options: ["Vidal Blanc", "Traminette", "Chambourcin", "Seyval Blanc"],
+    correctAnswer: "Chambourcin",
+    explanation: "Chambourcin is a French-American hybrid grape that grows well in Virginia's humid climate and produces a dark-colored red wine with cherry and earthy notes.",
+    wrongAnswerExplanations: {
+      "Vidal Blanc": "Vidal Blanc is a white hybrid grape often used for off-dry or dessert wines.",
+      "Traminette": "Traminette is an aromatic white hybrid grape with floral notes similar to Gewürztraminer.",
+      "Seyval Blanc": "Seyval Blanc is a white hybrid grape that produces crisp, dry white wines."
+    }
+  },
+  {
+    question: "Virginia's wine industry often draws parallels to which famous 'Old World' region due to its climate and key grapes?",
+    options: ["Tuscany, Italy", "Bordeaux, France", "Rioja, Spain", "Mosel, Germany"],
+    correctAnswer: "Bordeaux, France",
+    explanation: "With its humid, maritime-influenced climate and success with grapes like Merlot, Cabernet Franc, and Petit Verdot, Virginia is often compared to Bordeaux.",
+    wrongAnswerExplanations: {
+      "Tuscany, Italy": "Tuscany's climate is much drier and Mediterranean, and its key grape is Sangiovese.",
+      "Rioja, Spain": "Rioja has a different climate and its signature grape is Tempranillo.",
+      "Mosel, Germany": "The Mosel has a cool continental climate and is famous for Riesling."
+    }
+  },
+  {
+    question: "Which Virginia AVA is one of the state's oldest and is located on a peninsula?",
+    options: ["Middleburg AVA", "Shenandoah Valley AVA", "Northern Neck George Washington Birthplace AVA", "Rocky Knob AVA"],
+    correctAnswer: "Northern Neck George Washington Birthplace AVA",
+    explanation: "Established in 1987, this AVA is located on the Northern Neck peninsula and is one of Virginia's first federally recognized wine regions.",
+    wrongAnswerExplanations: {
+      "Middleburg AVA": "This is in Northern Virginia but was established much later, in 2012.",
+      "Shenandoah Valley AVA": "This is a large AVA in western Virginia, not on a peninsula.",
+      "Rocky Knob AVA": "Located in the Blue Ridge Mountains, this was one of the first AVAs but is not on a peninsula."
+    }
+  },
+  {
+    question: "The 'October Virginia Wine Month' celebrates what?",
+    options: ["The start of the growing season", "The peak of the harvest season", "The release of new sparkling wines", "A historical event in Virginia"],
+    correctAnswer: "The peak of the harvest season",
+    explanation: "October is designated as Virginia Wine Month because it coincides with the height of the grape harvest season, a time of celebration and activity at wineries.",
+    wrongAnswerExplanations: {
+      "The start of the growing season": "The growing season begins in the spring with bud break.",
+      "The release of new sparkling wines": "Wine releases happen throughout the year and are not tied to a specific month-long celebration.",
+      "A historical event in Virginia": "It celebrates the current harvest, not a specific past event."
+    }
+  },
+  {
+    question: "Which of these is a wine region in Northern Virginia known for its scenic beauty and numerous wineries?",
+    options: ["The Finger Lakes", "Loudoun County", "The Willamette Valley", "Shenandoah County"],
+    correctAnswer: "Loudoun County",
+    explanation: "Loudoun County, often called 'DC's Wine Country,' is home to over 40 wineries and is a major center for wine tourism in Virginia.",
+    wrongAnswerExplanations: {
+      "The Finger Lakes": "This is a major wine region in New York State.",
+      "The Willamette Valley": "This is Oregon's most famous wine region.",
+      "Shenandoah County": "While part of the larger Shenandoah Valley AVA, Loudoun County is more distinctly known as the heart of Northern Virginia's wine scene."
+    }
+  },
+  {
+    question: "A 'Meritage' wine from Virginia is a blend of which type of grapes?",
+    options: ["Rhône varieties (Syrah, Grenache)", "Italian varieties (Sangiovese, Nebbiolo)", "Bordeaux varieties (Cabernet, Merlot)", "German varieties (Riesling, Gewürztraminer)"],
+    correctAnswer: "Bordeaux varieties (Cabernet, Merlot)",
+    explanation: "Meritage is a term for American wines made in the style of a Bordeaux blend, using grapes like Cabernet Sauvignon, Merlot, Cabernet Franc, and Petit Verdot.",
+    wrongAnswerExplanations: {
+      "Rhône varieties (Syrah, Grenache)": "A blend of these grapes would be called a Rhône-style blend, not a Meritage.",
+      "Italian varieties (Sangiovese, Nebbiolo)": "These grapes are used in Italian wines like Chianti and Barolo.",
+      "German varieties (Riesling, Gewürztraminer)": "These are white grapes and are not used in a Meritage blend."
+    }
+  },
+  {
+    question: "Which historic figure is considered the 'Father of American Viticulture' for his early efforts at Monticello?",
+    options: ["George Washington", "James Monroe", "Thomas Jefferson", "Patrick Henry"],
+    correctAnswer: "Thomas Jefferson",
+    explanation: "Thomas Jefferson was a passionate advocate for viticulture and attempted to cultivate European grapevines in Virginia long before it was commercially viable.",
+    wrongAnswerExplanations: {
+        "George Washington": "Washington experimented with many crops at Mount Vernon but is not as famously linked to wine as Jefferson.",
+        "James Monroe": "While a contemporary of Jefferson, Monroe is not known for viticulture.",
+        "Patrick Henry": "Patrick Henry was a statesman and orator, not a known viticulturist."
+    }
+  },
+  {
+    question: "What is a common characteristic of Virginia Petit Verdot?",
+    options: ["Light body and color", "Low tannins and high acidity", "Deep color, full body, and firm tannins", "Sweet with floral aromas"],
+    correctAnswer: "Deep color, full body, and firm tannins",
+    explanation: "Petit Verdot, traditionally a minor blending grape in Bordeaux, excels in Virginia as a single-varietal wine known for its power and structure.",
+     wrongAnswerExplanations: {
+        "Light body and color": "This describes wines like Pinot Noir, the opposite of Petit Verdot.",
+        "Low tannins and high acidity": "Petit Verdot is known for having high, not low, tannins.",
+        "Sweet with floral aromas": "This describes a dessert wine like Moscato; Petit Verdot is a dry, bold red."
+    }
+  },
+  {
+    question: "Which Virginia winery is known for its stunning location on a high-elevation mountain pass in Northern Virginia?",
+    options: ["Barboursville Vineyards", "King Family Vineyards", "Bluemont Vineyard", "Chateau Morrisette"],
+    correctAnswer: "Bluemont Vineyard",
+    explanation: "Bluemont Vineyard in Northern Virginia is situated at 951 feet elevation on an eastern slope of the Blue Ridge Mountains, offering panoramic views.",
+    wrongAnswerExplanations: {
+        "Barboursville Vineyards": "Barboursville is known for its historic ruins and is not at a high mountain elevation.",
+        "King Family Vineyards": "King Family is famous for its polo matches and scenic but not high-elevation setting.",
+        "Chateau Morrisette": "This is a well-known winery on the Blue Ridge Parkway, but located in Southern Virginia."
+    }
+  },
+  {
+    question: "What is the name of the annual event where the best Virginia wines are judged and awarded?",
+    options: ["The Virginia State Fair Wine Competition", "The Monticello Cup", "The Virginia Governor's Cup", "The Commonwealth Wine Classic"],
+    correctAnswer: "The Virginia Governor's Cup",
+    explanation: "The Virginia Governor's Cup is the state's most stringent wine competition, resulting in the selection of the prestigious Governor's Case.",
+    wrongAnswerExplanations: {
+      "The Virginia State Fair Wine Competition": "The State Fair has a competition, but the Governor's Cup is the most prestigious.",
+      "The Monticello Cup": "The Monticello Wine Trail has its own awards, but this is not the statewide competition.",
+      "The Commonwealth Wine Classic": "This is not the name of a major Virginia wine competition."
+    }
+  },
+  {
+    question: "Which insect pest, native to Asia, poses a significant threat to Virginia vineyards by damaging grapes and vines?",
+    options: ["Spotted Lanternfly", "Japanese Beetle", "Glassy-winged Sharpshooter", "Grape Berry Moth"],
+    correctAnswer: "Spotted Lanternfly",
+    explanation: "The invasive Spotted Lanternfly has become a major concern for Virginia's agricultural industries, including vineyards, as it feeds on and damages grapevines.",
+    wrongAnswerExplanations: {
+      "Japanese Beetle": "While a pest, the Spotted Lanternfly is a more recent and significant threat.",
+      "Glassy-winged Sharpshooter": "This pest is a major issue in California as a vector for Pierce's Disease, but less so in Virginia.",
+      "Grape Berry Moth": "This is a common vineyard pest, but the Spotted Lanternfly is a more severe invasive threat."
+    }
+  },
+  {
+    question: "What does a 'Gold Medal' from the Virginia Governor's Cup signify?",
+    options: ["The wine is affordable", "The wine is a best-seller", "The wine meets a high standard of quality", "The wine is made from 100% Virginia grapes"],
+    correctAnswer: "The wine meets a high standard of quality",
+    explanation: "A Gold Medal is awarded to wines that score 90 points or higher on a 100-point scale by a panel of esteemed judges, indicating exceptional quality.",
+    wrongAnswerExplanations: {
+      "The wine is affordable": "Price is not a factor in the judging.",
+      "The wine is a best-seller": "Sales volume has no bearing on the competition.",
+      "The wine is made from 100% Virginia grapes": "While this is a requirement to enter, the medal itself signifies quality, not just origin."
+    }
+  },
+  {
+    question: "True or False: All wineries in Virginia are required to be part of an AVA.",
+    options: ["True", "False"],
+    correctAnswer: "False",
+    explanation: "While many wineries are located within an AVA, it is not a requirement. A winery can exist outside of an AVA's boundaries and label its wine with the broader 'Virginia' appellation.",
+    wrongAnswerExplanations: {
+      "True": "Wineries can be located anywhere in the state, and being within an AVA is not mandatory for operation."
+    }
+  }
 ];
 
 // --- HELPER FUNCTIONS ---
