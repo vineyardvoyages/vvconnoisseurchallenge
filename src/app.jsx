@@ -7,7 +7,7 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, collection, s
 // PASTE YOUR FULL ARRAY OF 100 QUESTIONS HERE
 const WINE_QUIZ_QUESTIONS = [
   // Example Question (replace with your full list):
-   // Example Question (replace with your full list):
+  // Example Question (replace with your full list):
   {
     question: "Which of the following is a red grape varietal?",
     options: ["Chardonnay", "Sauvignon Blanc", "Merlot", "Pinot Grigio"],
@@ -1378,7 +1378,7 @@ export default function App() {
              <header className="text-center relative pt-4">
                 <h2 className="text-2xl font-bold text-gray-700 font-heading">Game Code: <span className="font-mono text-mauve tracking-widest">{gameId}</span></h2>
                 <p className="text-gray-500">Proctor: <span className="font-semibold">{hostName}</span></p>
-                 <button onClick={handleLeaveGame} className="absolute top-0 right-0 text-sm font-bold text-red-500 hover:text-red-700 transition-colors">
+                 <button onClick={handleLeaveGame} className="absolute top-0 right-0 text-xs font-bold text-red-500 hover:text-red-700 transition-colors p-2">
                     Leave 🚪
                 </button>
              </header>
@@ -1404,7 +1404,7 @@ export default function App() {
             ) : (
               <>
                 <div className="bg-white/80 p-6 rounded-xl shadow-xl backdrop-blur-sm">
-                    <p className="font-semibold text-mauve mb-2 font-heading text-center">Question {currentQuestionIndex + 1} of {questions.length}</p>
+                    <p className="font-semibold text-mauve mb-2 font-heading text-center">Question {currentQuestionIndex + 1} of {10}</p>
                     <h3 className="text-2xl font-bold text-gray-800 font-heading mb-6 text-center">{currentQuestion.question}</h3>
                     <div className="space-y-3">
                         {currentQuestion.options.map(opt => <PlayerCard key={opt} option={opt} />)}
