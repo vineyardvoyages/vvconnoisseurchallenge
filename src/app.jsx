@@ -683,17 +683,17 @@ const WINE_QUIZ_QUESTIONS = [
       "Filtration": "Filtration is one method, but racking and fining also remove particles."
     }
   },
-  {
-    question: "Which grape varietal is the most widely planted in the world?",
+ {
+    question: "What is now considered the most widely planted wine grape variety in the world?",
     options: ["Merlot", "Airén", "Cabernet Sauvignon", "Chardonnay"],
-    correctAnswer: "Airén",
-    explanation: "While Cabernet Sauvignon and Merlot are very popular, Airén, a white grape primarily grown in Spain, historically holds the title for most widely planted by area.",
+    correctAnswer: "Cabernet Sauvignon",
+    explanation: "For many years, the Spanish grape Airén held the top spot. However, due to recent global planting trends, Cabernet Sauvignon has now surpassed it to become the world's most cultivated wine grape.",
     wrongAnswerExplanations: {
-      "Merlot": "Merlot is widely planted but not the most extensive by vineyard area.",
-      "Cabernet Sauvignon": "Cabernet Sauvignon is popular globally but doesn't have the largest vineyard area.",
-      "Chardonnay": "Chardonnay is widely planted but has less total vineyard area than Airén."
+      "Merlot": "Merlot is the second most planted grape variety, very close behind Cabernet Sauvignon.",
+      "Airén": "Airén was historically the most planted grape, primarily used for Spanish brandy, but its plantings have been in decline.",
+      "Chardonnay": "Chardonnay is the world's most popular white wine grape but is not the most planted overall."
     }
-  },
+  }
   {
     question: "What is the name of the sweet, fortified wine from Jerez, Spain?",
     options: ["Port", "Madeira", "Sherry", "Marsala"],
