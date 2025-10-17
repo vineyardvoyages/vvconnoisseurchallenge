@@ -7,7 +7,7 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, collection, s
 // PASTE YOUR FULL ARRAY OF 100 QUESTIONS HERE
 const WINE_QUIZ_QUESTIONS = [
   // Example Question (replace with your full list):
-    // Example Question (replace with your full list):
+   // Example Question (replace with your full list):
   {
     question: "Which of the following is a red grape varietal?",
     options: ["Chardonnay", "Sauvignon Blanc", "Merlot", "Pinot Grigio"],
@@ -1193,11 +1193,12 @@ export default function App() {
         const docSnap = await getDoc(gameDocRef);
         if (docSnap.exists()) {
             const game = docSnap.data();
+            // If the user is the host, let them rejoin without adding to players list
             if (game.hostId === userId) {
-                 // Proctor is rejoining, not joining as a player
                 setGameId(code);
                 return;
             }
+            // If player is not already in the game, add them
             if (!game.players.some(p => p.id === userId)) {
                 const newPlayer = { id: userId, name: userName, score: 0, selectedAnswer: null };
                 await updateDoc(gameDocRef, { players: [...game.players, newPlayer] });
@@ -1215,6 +1216,7 @@ export default function App() {
   };
 
   const handleSelectAnswer = async (option) => {
+    // Proctors cannot select answers
     if (isProctor || gameData?.revealAnswers || gameData?.quizEnded) return;
 
     const gameDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'games', gameId);
@@ -1353,16 +1355,12 @@ export default function App() {
                 </button>
             );
         };
-
-        const ProctorControls = () => {
+        
+        const ProctorQuestionControls = () => {
             if (!isProctor) return null;
             const answeredCount = players.filter(p => p.selectedAnswer !== null).length;
             return (
-                <div className="bg-white/80 p-6 rounded-xl shadow-xl space-y-4">
-                    <h4 className="font-bold text-xl text-gray-800 font-heading mb-3 text-center">Proctor Controls</h4>
-                    <div className="bg-mauve text-white p-2 rounded-lg text-center shadow-inner">
-                        <p className="font-bold text-sm uppercase tracking-wider">You are the Proctor</p>
-                    </div>
+                <div className="mt-6 space-y-3">
                     <div className="p-3 bg-stone-100/80 rounded-lg text-center">
                         <p className="text-sm font-semibold text-gray-700">{answeredCount} of {players.length} players have answered.</p>
                     </div>
@@ -1377,10 +1375,12 @@ export default function App() {
 
         return (
           <div className="w-full max-w-md mx-auto flex flex-col gap-6 animate-fade-in">
-             <header className="text-center">
+             <header className="text-center relative pt-4">
                 <h2 className="text-2xl font-bold text-gray-700 font-heading">Game Code: <span className="font-mono text-mauve tracking-widest">{gameId}</span></h2>
                 <p className="text-gray-500">Proctor: <span className="font-semibold">{hostName}</span></p>
-                <button onClick={handleLeaveGame} className="mt-2 text-sm font-medium text-gray-500 hover:text-red-500 transition-colors">Leave Game</button>
+                 <button onClick={handleLeaveGame} className="absolute top-0 right-0 text-sm font-bold text-red-500 hover:text-red-700 transition-colors">
+                    Leave 🚪
+                </button>
              </header>
 
             {quizEnded ? (
@@ -1410,7 +1410,7 @@ export default function App() {
                         {currentQuestion.options.map(opt => <PlayerCard key={opt} option={opt} />)}
                     </div>
                     
-                    {isProctor && <div className="mt-6"><ProctorControls/></div> }
+                    <ProctorQuestionControls />
 
                     {revealAnswers && (
                         <div className="mt-6 p-4 bg-green-50/80 border-l-4 border-green-500 animate-fade-in">
@@ -1438,7 +1438,6 @@ export default function App() {
                          {players.length === 0 && <p className="text-center text-gray-500">Waiting for players to join...</p>}
                     </ul>
                 </div>
-                {isProctor && <ProctorControls/>}
               </>
             )}
           </div>
