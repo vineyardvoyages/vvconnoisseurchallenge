@@ -6,7 +6,8 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, collection, s
 // --- WINE QUIZ QUESTIONS BANK ---
 // PASTE YOUR FULL ARRAY OF 100 QUESTIONS HERE
 const WINE_QUIZ_QUESTIONS = [
-    // Example Question (replace with your full list):
+  // Example Question (replace with your full list):
+  // Example Question (replace with your full list):
   {
     question: "Which of the following is a red grape varietal?",
     options: ["Chardonnay", "Sauvignon Blanc", "Merlot", "Pinot Grigio"],
@@ -1045,9 +1046,12 @@ const generateGameCode = () => {
 
 // --- FIREBASE INITIALIZATION (RUNS ONCE) ---
 let firebaseConfig;
+let appId;
 
 if (typeof __firebase_config !== 'undefined') {
   firebaseConfig = JSON.parse(__firebase_config);
+  const rawAppId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+  appId = String(rawAppId).replace(/[^a-zA-Z0-9_-]/g, '_');
 } else {
   firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -1057,12 +1061,12 @@ if (typeof __firebase_config !== 'undefined') {
     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
   };
+  appId = firebaseConfig.projectId;
 }
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const appId = firebaseConfig.projectId; // Define appId consistently
 setLogLevel('debug');
 
 
@@ -1165,7 +1169,7 @@ export default function App() {
       questions: getTenRandomQuestions(),
       revealAnswers: false,
       quizEnded: false,
-      players: [{ id: userId, name: userName, score: 0, selectedAnswer: null }],
+      players: [], // Proctor is not a player
     };
     try {
       await setDoc(gameDocRef, newGameData);
@@ -1190,6 +1194,11 @@ export default function App() {
         const docSnap = await getDoc(gameDocRef);
         if (docSnap.exists()) {
             const game = docSnap.data();
+            if (game.hostId === userId) {
+                 // Proctor is rejoining, not joining as a player
+                setGameId(code);
+                return;
+            }
             if (!game.players.some(p => p.id === userId)) {
                 const newPlayer = { id: userId, name: userName, score: 0, selectedAnswer: null };
                 await updateDoc(gameDocRef, { players: [...game.players, newPlayer] });
@@ -1207,7 +1216,7 @@ export default function App() {
   };
 
   const handleSelectAnswer = async (option) => {
-    if (gameData?.revealAnswers || gameData?.quizEnded) return;
+    if (isProctor || gameData?.revealAnswers || gameData?.quizEnded) return;
 
     const gameDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'games', gameId);
     const updatedPlayers = gameData.players.map(p => p.id === userId ? { ...p, selectedAnswer: option } : p);
@@ -1259,7 +1268,7 @@ export default function App() {
         return (
           <div className="w-full max-w-sm mx-auto text-center animate-fade-in">
             <h2 className="text-3xl font-bold text-gray-800 font-heading mb-4">Welcome, Connoisseur!</h2>
-            <p className="text-gray-500 mb-6">Please enter your name to begin the challenge.</p>
+            <p className="text-gray-500 mb-6">Please enter your name to begin.</p>
             {error && <p className="text-red-500 mb-4">{error}</p>}
             <input
               type="text" value={nameInput} onChange={(e) => setNameInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleSetName()}
@@ -1278,13 +1287,13 @@ export default function App() {
       case 'lobby':
         return (
           <div className="w-full max-w-md mx-auto text-center animate-fade-in">
-            <h2 className="text-3xl font-heading font-bold text-gray-800 mb-2">Multiplayer Lobby</h2>
+            <h2 className="text-3xl font-heading font-bold text-gray-800 mb-2">Join the Challenge</h2>
             <p className="text-gray-500 mb-8">Welcome, <span className="font-bold text-mauve">{userName}</span>!</p>
             
             {error && <p className="text-red-500 mb-4">{error}</p>}
 
             <div className="bg-white/50 p-6 rounded-xl shadow-md mb-6 border border-gray-200">
-              <h3 className="text-xl font-heading font-semibold text-gray-700 mb-4">Join an Existing Game</h3>
+              <h3 className="text-xl font-heading font-semibold text-gray-700 mb-4">Join a Game</h3>
               <input
                 type="text" value={gameIdInput} onChange={(e) => setGameIdInput(e.target.value)} onKeyPress={(e) => e.key === 'Enter' && handleJoinGame()}
                 placeholder="4-LETTER CODE" maxLength={4}
@@ -1339,7 +1348,7 @@ export default function App() {
             return (
                 <button
                     onClick={() => handleSelectAnswer(option)}
-                    disabled={revealAnswers || quizEnded}
+                    disabled={revealAnswers || quizEnded || isProctor}
                     className={`p-4 rounded-xl shadow-md border text-left w-full transition-all duration-300 ${cardStyle}`}
                 >
                     <p className="font-semibold text-lg text-gray-800">{option}</p>
@@ -1348,92 +1357,84 @@ export default function App() {
         };
 
         return (
-          <div className="w-full max-w-6xl mx-auto animate-fade-in">
-             <header className="mb-6 pb-4 border-b border-gray-200/80">
-                <div className="flex justify-between items-center">
-                    <div>
-                        <h2 className="text-2xl font-bold text-gray-700 font-heading">Game Code: <span className="font-mono text-mauve tracking-widest">{gameId}</span></h2>
-                        <p className="text-gray-500">Proctor: <span className="font-semibold">{hostName}</span></p>
-                    </div>
-                    <button onClick={handleLeaveGame} className="text-sm font-medium text-gray-500 hover:text-red-500 transition-colors">Leave Game</button>
-                </div>
-                 {isProctor && <p className="mt-2 text-xs font-semibold text-center bg-mauve text-white px-3 py-1 rounded-full inline-block shadow-sm uppercase tracking-wider">You are the Proctor</p>}
+          <div className="w-full max-w-md mx-auto flex flex-col gap-6 animate-fade-in">
+             <header className="text-center">
+                <h2 className="text-2xl font-bold text-gray-700 font-heading">Game Code: <span className="font-mono text-mauve tracking-widest">{gameId}</span></h2>
+                <p className="text-gray-500">Proctor: <span className="font-semibold">{hostName}</span></p>
+                <button onClick={handleLeaveGame} className="mt-2 text-sm font-medium text-gray-500 hover:text-red-500 transition-colors">Leave Game</button>
              </header>
 
             {quizEnded ? (
-                <div className="text-center bg-white/80 p-8 rounded-xl shadow-xl animate-fade-in backdrop-blur-sm">
-                    <h3 className="text-4xl font-extrabold text-gray-800 font-heading mb-4">Challenge Complete!</h3>
-                    <p className="text-xl text-gray-500 mb-8">Final Scores:</p>
-                    <ul className="space-y-3 max-w-md mx-auto">
+                <div className="text-center bg-white/80 p-6 rounded-xl shadow-xl animate-fade-in backdrop-blur-sm">
+                    <h3 className="text-3xl font-extrabold text-gray-800 font-heading mb-4">Challenge Complete!</h3>
+                    <p className="text-lg text-gray-500 mb-6">Final Scores:</p>
+                    <ul className="space-y-3">
                         {[...players].sort((a,b) => b.score - a.score).map((p, index) => (
-                           <li key={p.id} className={`flex justify-between items-center p-4 rounded-lg shadow-inner ${index === 0 ? 'bg-yellow-100/80 border border-yellow-300' : 'bg-stone-50/80'}`}>
-                                <p className="font-bold text-lg text-gray-800">{index === 0 ? '🏆' : ''} {p.name}</p>
-                                <p className="font-bold text-2xl text-mauve">{p.score}</p>
+                           <li key={p.id} className={`flex justify-between items-center p-3 rounded-lg shadow-inner text-left ${index === 0 ? 'bg-yellow-100/80 border border-yellow-300' : 'bg-stone-50/80'}`}>
+                                <p className="font-bold text-lg text-gray-800">{index === 0 ? '🏆' : `${index + 1}.`} {p.name}</p>
+                                <p className="font-bold text-xl text-mauve">{p.score}</p>
                            </li>
                         ))}
                     </ul>
                     {isProctor && (
-                        <button onClick={handleCreateGame} className="mt-10 bg-mauve text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-dark-green transition-transform transform hover:scale-105">
+                        <button onClick={handleCreateGame} className="w-full mt-8 bg-mauve text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-dark-green transition-transform transform hover:scale-105">
                             Start a New Game
                         </button>
                     )}
                 </div>
             ) : (
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div className="lg:col-span-2 bg-white/80 p-8 rounded-xl shadow-xl backdrop-blur-sm">
-                        <p className="font-semibold text-mauve mb-2 font-heading">Question {currentQuestionIndex + 1} of {questions.length}</p>
-                        <h3 className="text-3xl font-bold text-gray-800 font-heading mb-8">{currentQuestion.question}</h3>
-                        <div className="space-y-4">
-                            {currentQuestion.options.map(opt => <PlayerCard key={opt} option={opt} />)}
-                        </div>
-                        
-                        {revealAnswers && (
-                            <div className="mt-8 p-4 bg-green-50/80 border-l-4 border-green-500 animate-fade-in">
-                                <h4 className="font-bold text-green-800 font-heading">Explanation</h4>
-                                <p className="text-green-700 mt-1">{currentQuestion.explanation}</p>
-                                 { currentPlayer?.selectedAnswer && currentPlayer.selectedAnswer !== currentQuestion.correctAnswer && (
-                                    <div className="mt-4 pt-4 border-t border-green-200">
-                                        <h5 className="font-bold text-red-800">Why your answer was incorrect:</h5>
-                                        <p className="text-red-700">{currentQuestion.wrongAnswerExplanations[currentPlayer.selectedAnswer]}</p>
-                                    </div>
-                                )}
-                            </div>
-                         )}
-
-                         {!revealAnswers && currentPlayer?.selectedAnswer && (
-                              <div className="mt-8 p-4 bg-blue-50/80 border-l-4 border-blue-500 text-center animate-fade-in">
-                                  <p className="font-semibold text-blue-800">Your answer has been submitted! You can change it until the proctor reveals the correct answer.</p>
-                              </div>
-                         )}
+              <>
+                <div className="bg-white/80 p-6 rounded-xl shadow-xl backdrop-blur-sm">
+                    <p className="font-semibold text-mauve mb-2 font-heading text-center">Question {currentQuestionIndex + 1} of {questions.length}</p>
+                    <h3 className="text-2xl font-bold text-gray-800 font-heading mb-6 text-center">{currentQuestion.question}</h3>
+                    <div className="space-y-3">
+                        {currentQuestion.options.map(opt => <PlayerCard key={opt} option={opt} />)}
                     </div>
-
-                    <div className="space-y-6">
-                        <div className="bg-white/80 p-6 rounded-xl shadow-xl backdrop-blur-sm">
-                            <h4 className="font-bold text-xl text-gray-800 font-heading mb-4">Scoreboard</h4>
-                            <ul className="space-y-3">
-                                {players.map(p => (
-                                    <li key={p.id} className="flex justify-between items-center pb-2 border-b border-gray-200/50">
-                                        <p className="font-semibold text-gray-700">{p.name} {p.id === userId && '(You)'}</p>
-                                        <p className="font-bold text-xl text-mauve">{p.score}</p>
-                                    </li>
-                                ))}
-                            </ul>
+                    
+                    {revealAnswers && (
+                        <div className="mt-6 p-4 bg-green-50/80 border-l-4 border-green-500 animate-fade-in">
+                            <h4 className="font-bold text-green-800 font-heading">Explanation</h4>
+                            <p className="text-green-700 mt-1">{currentQuestion.explanation}</p>
                         </div>
-                        {isProctor && (
-                             <div className="bg-white/80 p-6 rounded-xl shadow-xl space-y-4 sticky top-6 backdrop-blur-sm">
-                                <h4 className="font-bold text-xl text-gray-800 font-heading mb-3">Proctor Controls</h4>
-                                <div className="p-3 bg-stone-100/80 rounded-lg text-center">
-                                    <p className="text-sm font-semibold text-gray-700">{answeredCount} of {players.length} players have answered.</p>
-                                </div>
-                                {!revealAnswers ? (
-                                    <button onClick={handleReveal} className="w-full bg-yellow-400 text-black font-bold py-3 rounded-lg shadow-md hover:bg-yellow-500 transition-transform transform hover:scale-105">Reveal Answer</button>
-                                ) : (
-                                    <button onClick={handleNextQuestion} className="w-full bg-mauve text-white font-bold py-3 rounded-lg shadow-md hover:bg-darkest-green transition-transform transform hover:scale-105">Next Question</button>
-                                )}
-                            </div>
-                        )}
-                    </div>
+                     )}
+
+                     {!isProctor && !revealAnswers && currentPlayer?.selectedAnswer && (
+                          <div className="mt-6 p-3 bg-blue-50/80 border-l-4 border-blue-500 text-center animate-fade-in">
+                              <p className="font-semibold text-blue-800 text-sm">Your answer is in! You can change it until the proctor reveals the answer.</p>
+                          </div>
+                     )}
                 </div>
+
+                <div className="space-y-4">
+                    <div className="bg-white/80 p-6 rounded-xl shadow-xl backdrop-blur-sm">
+                        <h4 className="font-bold text-xl text-gray-800 font-heading mb-4 text-center">Scoreboard</h4>
+                        <ul className="space-y-3">
+                            {players.map(p => (
+                                <li key={p.id} className="flex justify-between items-center pb-2 border-b border-gray-200/50">
+                                    <p className="font-semibold text-gray-700">{p.name}</p>
+                                    <p className="font-bold text-xl text-mauve">{p.score}</p>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    {isProctor && (
+                         <div className="bg-white/80 p-6 rounded-xl shadow-xl space-y-4">
+                            <h4 className="font-bold text-xl text-gray-800 font-heading mb-3 text-center">Proctor Controls</h4>
+                             <div className="bg-mauve text-white p-2 rounded-lg text-center shadow-inner">
+                                <p className="font-bold text-sm uppercase tracking-wider">You are the Proctor</p>
+                            </div>
+                            <div className="p-3 bg-stone-100/80 rounded-lg text-center">
+                                <p className="text-sm font-semibold text-gray-700">{answeredCount} of {players.length} players have answered.</p>
+                            </div>
+                            {!revealAnswers ? (
+                                <button onClick={handleReveal} className="w-full bg-yellow-400 text-black font-bold py-3 rounded-lg shadow-md hover:bg-yellow-500 transition-transform transform hover:scale-105">Reveal Answer</button>
+                            ) : (
+                                <button onClick={handleNextQuestion} className="w-full bg-mauve text-white font-bold py-3 rounded-lg shadow-md hover:bg-darkest-green transition-transform transform hover:scale-105">Next Question</button>
+                            )}
+                        </div>
+                    )}
+                </div>
+              </>
             )}
           </div>
         );
@@ -1447,24 +1448,6 @@ export default function App() {
     <div className="min-h-screen bg-stone-100 flex items-center justify-center p-4 font-body antialiased relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#6b2a58]/20 via-transparent to-[#9CAC3E]/20 z-0"></div>
         
-        <style>{`
-            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Lato:wght@400;700&display=swap');
-            body { background-color: #f5f5f4; }
-            .font-heading { font-family: 'Playfair Display', serif; }
-            .font-body { font-family: 'Lato', sans-serif; }
-            .bg-mauve { background-color: #6b2a58; }
-            .text-mauve { color: #6b2a58; }
-            .ring-mauve { --tw-ring-color: #6b2a58; }
-            .border-mauve { border-color: #6b2a58; }
-            .bg-light-green { background-color: #9CAC3E; }
-            .text-light-green { color: #9CAC3E; }
-            .ring-light-green { --tw-ring-color: #9CAC3E; }
-            .border-light-green { border-color: #9CAC3E; }
-            .bg-dark-green { background-color: #496E3E; }
-            .bg-darkest-green { background-color: #486D3E; }
-            .animate-fade-in { animation: fadeIn 0.6s ease-in-out; }
-            @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        `}</style>
       <div className="w-full max-w-7xl mx-auto relative z-10">
         <header className="bg-dark-green text-white py-4 shadow-2xl rounded-t-2xl">
             <div className="max-w-7xl mx-auto flex justify-center items-center">
@@ -1491,4 +1474,3 @@ export default function App() {
   );
 }
 
-  
