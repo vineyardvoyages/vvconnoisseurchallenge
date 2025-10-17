@@ -6,7 +6,7 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, collection, s
 // --- WINE QUIZ QUESTIONS BANK ---
 // PASTE YOUR FULL ARRAY OF 100 QUESTIONS HERE
 const WINE_QUIZ_QUESTIONS = [
-  // Example Question (replace with your full list):
+    // Example Question (replace with your full list):
   {
     question: "Which of the following is a red grape varietal?",
     options: ["Chardonnay", "Sauvignon Blanc", "Merlot", "Pinot Grigio"],
@@ -1019,7 +1019,6 @@ const WINE_QUIZ_QUESTIONS = [
     }
   }
 ];
-
 // --- HELPER FUNCTIONS ---
 const shuffleArray = (array) => {
   let currentIndex = array.length, randomIndex;
@@ -1046,12 +1045,9 @@ const generateGameCode = () => {
 
 // --- FIREBASE INITIALIZATION (RUNS ONCE) ---
 let firebaseConfig;
-let appId;
 
 if (typeof __firebase_config !== 'undefined') {
   firebaseConfig = JSON.parse(__firebase_config);
-  const rawAppId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-  appId = String(rawAppId).replace(/[^a-zA-Z0-9_-]/g, '_');
 } else {
   firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -1061,12 +1057,12 @@ if (typeof __firebase_config !== 'undefined') {
     messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_FIREBASE_APP_ID,
   };
-  appId = firebaseConfig.projectId;
 }
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const appId = firebaseConfig.projectId; // Define appId consistently
 setLogLevel('debug');
 
 
@@ -1119,7 +1115,7 @@ export default function App() {
 
   // Firestore Real-time Game Listener
   useEffect(() => {
-    if (!gameId || !isAuthReady) return;
+    if (!gameId || !isAuthReady || !appId) return;
     const gameDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'games', gameId);
     const unsubscribe = onSnapshot(gameDocRef, (docSnap) => {
       setIsLoadingGame(false);
@@ -1495,3 +1491,4 @@ export default function App() {
   );
 }
 
+  
