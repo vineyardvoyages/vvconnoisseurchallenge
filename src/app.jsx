@@ -7,7 +7,7 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, collection, s
 // PASTE YOUR FULL ARRAY OF 100 QUESTIONS HERE
 const WINE_QUIZ_QUESTIONS = [
   // Example Question (replace with your full list):
-  // Example Question (replace with your full list):
+    // Example Question (replace with your full list):
   {
     question: "Which of the following is a red grape varietal?",
     options: ["Chardonnay", "Sauvignon Blanc", "Merlot", "Pinot Grigio"],
@@ -1021,14 +1021,13 @@ const WINE_QUIZ_QUESTIONS = [
   }
 ];
 // --- HELPER FUNCTIONS ---
+// Enhanced shuffle algorithm to ensure better randomization
 const shuffleArray = (array) => {
-  let currentIndex = array.length, randomIndex;
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-  }
-  return array;
+  const shuffled = array
+    .map(value => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+  return shuffled;
 };
 
 const getTenRandomQuestions = () => {
@@ -1329,7 +1328,6 @@ export default function App() {
         
         const { questions, currentQuestionIndex, players, revealAnswers, quizEnded, hostName } = gameData;
         const currentQuestion = questions[currentQuestionIndex];
-        const answeredCount = players.filter(p => p.selectedAnswer !== null).length;
 
         const PlayerCard = ({ option }) => {
             const isSelectedByMe = currentPlayer?.selectedAnswer === option;
@@ -1355,6 +1353,27 @@ export default function App() {
                 </button>
             );
         };
+
+        const ProctorControls = () => {
+            if (!isProctor) return null;
+            const answeredCount = players.filter(p => p.selectedAnswer !== null).length;
+            return (
+                <div className="bg-white/80 p-6 rounded-xl shadow-xl space-y-4">
+                    <h4 className="font-bold text-xl text-gray-800 font-heading mb-3 text-center">Proctor Controls</h4>
+                    <div className="bg-mauve text-white p-2 rounded-lg text-center shadow-inner">
+                        <p className="font-bold text-sm uppercase tracking-wider">You are the Proctor</p>
+                    </div>
+                    <div className="p-3 bg-stone-100/80 rounded-lg text-center">
+                        <p className="text-sm font-semibold text-gray-700">{answeredCount} of {players.length} players have answered.</p>
+                    </div>
+                    {!revealAnswers ? (
+                        <button onClick={handleReveal} className="w-full bg-yellow-400 text-black font-bold py-3 rounded-lg shadow-md hover:bg-yellow-500 transition-transform transform hover:scale-105">Reveal Answer</button>
+                    ) : (
+                        <button onClick={handleNextQuestion} className="w-full bg-mauve text-white font-bold py-3 rounded-lg shadow-md hover:bg-darkest-green transition-transform transform hover:scale-105">Next Question</button>
+                    )}
+                </div>
+            );
+        }
 
         return (
           <div className="w-full max-w-md mx-auto flex flex-col gap-6 animate-fade-in">
@@ -1391,6 +1410,8 @@ export default function App() {
                         {currentQuestion.options.map(opt => <PlayerCard key={opt} option={opt} />)}
                     </div>
                     
+                    {isProctor && <div className="mt-6"><ProctorControls/></div> }
+
                     {revealAnswers && (
                         <div className="mt-6 p-4 bg-green-50/80 border-l-4 border-green-500 animate-fade-in">
                             <h4 className="font-bold text-green-800 font-heading">Explanation</h4>
@@ -1405,35 +1426,19 @@ export default function App() {
                      )}
                 </div>
 
-                <div className="space-y-4">
-                    <div className="bg-white/80 p-6 rounded-xl shadow-xl backdrop-blur-sm">
-                        <h4 className="font-bold text-xl text-gray-800 font-heading mb-4 text-center">Scoreboard</h4>
-                        <ul className="space-y-3">
-                            {players.map(p => (
-                                <li key={p.id} className="flex justify-between items-center pb-2 border-b border-gray-200/50">
-                                    <p className="font-semibold text-gray-700">{p.name}</p>
-                                    <p className="font-bold text-xl text-mauve">{p.score}</p>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    {isProctor && (
-                         <div className="bg-white/80 p-6 rounded-xl shadow-xl space-y-4">
-                            <h4 className="font-bold text-xl text-gray-800 font-heading mb-3 text-center">Proctor Controls</h4>
-                             <div className="bg-mauve text-white p-2 rounded-lg text-center shadow-inner">
-                                <p className="font-bold text-sm uppercase tracking-wider">You are the Proctor</p>
-                            </div>
-                            <div className="p-3 bg-stone-100/80 rounded-lg text-center">
-                                <p className="text-sm font-semibold text-gray-700">{answeredCount} of {players.length} players have answered.</p>
-                            </div>
-                            {!revealAnswers ? (
-                                <button onClick={handleReveal} className="w-full bg-yellow-400 text-black font-bold py-3 rounded-lg shadow-md hover:bg-yellow-500 transition-transform transform hover:scale-105">Reveal Answer</button>
-                            ) : (
-                                <button onClick={handleNextQuestion} className="w-full bg-mauve text-white font-bold py-3 rounded-lg shadow-md hover:bg-darkest-green transition-transform transform hover:scale-105">Next Question</button>
-                            )}
-                        </div>
-                    )}
+                <div className="bg-white/80 p-6 rounded-xl shadow-xl backdrop-blur-sm">
+                    <h4 className="font-bold text-xl text-gray-800 font-heading mb-4 text-center">Scoreboard</h4>
+                    <ul className="space-y-3">
+                        {players.map(p => (
+                            <li key={p.id} className="flex justify-between items-center pb-2 border-b border-gray-200/50">
+                                <p className="font-semibold text-gray-700">{p.name}</p>
+                                <p className="font-bold text-xl text-mauve">{p.score}</p>
+                            </li>
+                        ))}
+                         {players.length === 0 && <p className="text-center text-gray-500">Waiting for players to join...</p>}
+                    </ul>
                 </div>
+                {isProctor && <ProctorControls/>}
               </>
             )}
           </div>
