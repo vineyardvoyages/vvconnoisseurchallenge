@@ -1020,6 +1020,7 @@ const WINE_QUIZ_QUESTIONS = [
     }
   }
 ];
+
 // --- HELPER FUNCTIONS ---
 // Enhanced shuffle algorithm to ensure better randomization
 const shuffleArray = (array) => {
@@ -1334,7 +1335,14 @@ export default function App() {
         const PlayerCard = ({ option }) => {
             const isSelectedByMe = currentPlayer?.selectedAnswer === option;
             let cardStyle = 'bg-white/80 hover:bg-stone-50 border-gray-300/80';
-            if (revealAnswers) {
+
+            if (isProctor && !revealAnswers) { // Proctor's pre-reveal view
+                if (option === currentQuestion.correctAnswer) {
+                    cardStyle = 'bg-green-100/90 border-green-400 ring-2 ring-green-300';
+                } else {
+                    cardStyle = 'bg-white/70 border-gray-300/80';
+                }
+            } else if (revealAnswers) { // Post-reveal for everyone
                 if (option === currentQuestion.correctAnswer) {
                     cardStyle = 'bg-green-200/80 border-green-500 ring-2 ring-green-500 transform scale-105 shadow-lg';
                 } else if (isSelectedByMe) {
@@ -1342,9 +1350,10 @@ export default function App() {
                 } else {
                     cardStyle = 'bg-stone-100/80 border-gray-200/80 opacity-60';
                 }
-            } else if (isSelectedByMe) {
+            } else if (isSelectedByMe) { // Player's pre-reveal view
                 cardStyle = 'bg-blue-200/80 border-blue-500 ring-2 ring-blue-500 shadow-lg';
             }
+            
             return (
                 <button
                     onClick={() => handleSelectAnswer(option)}
