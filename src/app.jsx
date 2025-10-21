@@ -69,17 +69,6 @@ const WINE_QUIZ_QUESTIONS = [
     }
   },
   {
-    question: "What is the process of aging wine in oak barrels called?",
-    options: ["Fermentation", "Malolactic fermentation", "Oaking", "Racking"],
-    correctAnswer: "Oaking",
-    explanation: "Oaking is the term for aging wine in oak barrels, which can impart flavors like vanilla, spice, and toast.",
-    wrongAnswerExplanations: {
-      "Fermentation": "Fermentation is the conversion of sugar to alcohol, not the aging process.",
-      "Malolactic fermentation": "This is a secondary fermentation that converts malic acid to lactic acid.",
-      "Racking": "Racking is the process of transferring wine from one container to another to separate it from sediment."
-    }
-  },
-  {
     question: "Which wine region is famous for its Cabernet Sauvignon wines?",
     options: ["Bordeaux, France", "Napa Valley, USA", "Barossa Valley, Australia", "All of the above"],
     correctAnswer: "All of the above",
@@ -135,24 +124,13 @@ const WINE_QUIZ_QUESTIONS = [
     }
   },
   {
-    question: "What is a 'Proctor'?",
-    options: ["A winemaker", "A wine critic", "A trained and knowledgeable wine professional", "A wine seller"],
-    correctAnswer: "A trained and knowledgeable wine professional",
-    explanation: "A Proctor is a highly trained and knowledgeable wine professional, typically working in fine dining restaurants, now serving as the moderator.",
-    wrongAnswerExplanations: {
-      "A winemaker": "A winemaker produces wine, while a Proctor is more focused on service and education.",
-      "A wine critic": "A wine critic evaluates and reviews wines professionally, which is different from a Proctor's role.",
-      "A wine seller": "A wine seller focuses on sales, while a Proctor provides expertise and guidance in service."
-    }
-  },
-  {
-    question: "Which of these is a sweet, fortified wine from Portugal?",
+    question: "Which of these is a sweet, fortified wine from mainland Portugal?",
     options: ["Sherry", "Port", "Madeira", "Marsala"],
     correctAnswer: "Port",
     explanation: "Port is a sweet, fortified wine produced in the Douro Valley of northern Portugal.",
     wrongAnswerExplanations: {
       "Sherry": "Sherry is a fortified wine from Spain, not Portugal.",
-      "Madeira": "While Madeira is from Portuguese territory (Madeira Island), Port is the more commonly known Portuguese fortified wine.",
+      "Madeira": "While Madeira is from Portuguese territory (Madeira Island), the island of Madeira is not on the mainland.",
       "Marsala": "Marsala is a fortified wine from Sicily, Italy, not Portugal."
     }
   },
