@@ -671,7 +671,7 @@ const WINE_QUIZ_QUESTIONS = [
       "Airén": "Airén was historically the most planted grape, primarily used for Spanish brandy, but its plantings have been in decline.",
       "Chardonnay": "Chardonnay is the world's most popular white wine grape but is not the most planted overall."
     }
-  }
+  },
   {
     question: "What is the name of the sweet, fortified wine from Jerez, Spain?",
     options: ["Port", "Madeira", "Sherry", "Marsala"],
@@ -996,9 +996,8 @@ const WINE_QUIZ_QUESTIONS = [
       "Cabernet Sauvignon": "Cabernet Sauvignon is not traditionally used in Rioja wines.",
       "Syrah": "Syrah is not traditionally used in Rioja wines."
     }
-  }
+  },
 
-[
   // --- General Wine Knowledge ---
   {
     question: "How is most still Rosé wine made?",
